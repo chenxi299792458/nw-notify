@@ -138,6 +138,9 @@ See [the wiki](https://github.com/cgrossde/nw-notify/wiki/Config-defaults).
 
 ## Changelog
 
+### change
+* code compatible nwjs-sdk-v0.27.1-win-x64, and bug fixed when call `closeAll()`, remove Autocleanup feature.
+
 ### 1.0.0
 
 **Breaking changes:**
