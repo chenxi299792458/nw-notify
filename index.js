@@ -272,7 +272,7 @@ function showNotification(notificationObj) {
     if (activeNotifications.length < config.maxVisibleNotifications) {
       // Get inactiveWindow or create new:
       getWindow().then(function (notificationWindow) {
-        alert('notificationWindow');
+
         // Move window to position
         calcInsertPos()
         notificationWindow.moveTo(nextInsertPos.x, Math.round(nextInsertPos.y))
@@ -520,44 +520,39 @@ function getWindow() {
       nw.Window.open(getTemplatePath(), config.defaultWindow, (notificationWindow) => {
         // Return once DOM is loaded
         notificationWindow.on('loaded', function () {
-          try {
-            // Style it
-            var notiDoc = notificationWindow.window.document
-            var container = notiDoc.getElementById('container')
-            var appIcon = notiDoc.getElementById('appIcon')
-            var image = notiDoc.getElementById('image')
-            var close = notiDoc.getElementById('close')
-            var message = notiDoc.getElementById('message')
-            // Default style
-            setStyleOnDomElement(config.defaultStyleContainer, container)
-            // Size and radius
-            var style = {
-              height: config.height - 2 * config.borderRadius - 2 * config.defaultStyleContainer.padding,
-              width: config.width - 2 * config.borderRadius - 2 * config.defaultStyleContainer.padding,
-              borderRadius: config.borderRadius + 'px'
-            }
-            setStyleOnDomElement(style, container)
-            // Style appIcon or hide
-            if (config.appIcon) {
-              setStyleOnDomElement(config.defaultStyleAppIcon, appIcon)
-              appIcon.src = config.appIcon
-            } else {
-              setStyleOnDomElement({
-                display: 'none'
-              }, appIcon)
-            }
-            // Style image
-            setStyleOnDomElement(config.defaultStyleImage, image)
-            // Style close button
-            setStyleOnDomElement(config.defaultStyleClose, close)
-            // Remove margin from text p
-            setStyleOnDomElement(config.defaultStyleText, message)
-            // Done
-            resolve(notificationWindow)
-          } catch (e) {
-            alert(e.name)
-            alert(e.message)
+          // Style it
+          var notiDoc = notificationWindow.window.document
+          var container = notiDoc.getElementById('container')
+          var appIcon = notiDoc.getElementById('appIcon')
+          var image = notiDoc.getElementById('image')
+          var close = notiDoc.getElementById('close')
+          var message = notiDoc.getElementById('message')
+          // Default style
+          setStyleOnDomElement(config.defaultStyleContainer, container)
+          // Size and radius
+          var style = {
+            height: config.height - 2 * config.borderRadius - 2 * config.defaultStyleContainer.padding,
+            width: config.width - 2 * config.borderRadius - 2 * config.defaultStyleContainer.padding,
+            borderRadius: config.borderRadius + 'px'
           }
+          setStyleOnDomElement(style, container)
+          // Style appIcon or hide
+          if (config.appIcon) {
+            setStyleOnDomElement(config.defaultStyleAppIcon, appIcon)
+            appIcon.src = config.appIcon
+          } else {
+            setStyleOnDomElement({
+              display: 'none'
+            }, appIcon)
+          }
+          // Style image
+          setStyleOnDomElement(config.defaultStyleImage, image)
+          // Style close button
+          setStyleOnDomElement(config.defaultStyleClose, close)
+          // Remove margin from text p
+          setStyleOnDomElement(config.defaultStyleText, message)
+          // Done
+          resolve(notificationWindow)
         })
       })
     }
